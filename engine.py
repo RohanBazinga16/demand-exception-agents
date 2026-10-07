@@ -23,8 +23,25 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data")
+_HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(_HERE)
+
+
+def find_data_dir(strict: bool = False) -> str:
+    """Works whether the repo keeps src/ and data/ folders or was uploaded flat (all files at top level)."""
+    cands = [os.getenv("DATA_DIR", ""), os.path.join(ROOT, "data"), os.path.join(_HERE, "data"), _HERE, ROOT,
+             os.path.join(os.getcwd(), "data"), os.getcwd()]
+    for c in cands:
+        if c and os.path.exists(os.path.join(c, "demand_history.csv")):
+            return c
+    if strict:
+        raise FileNotFoundError("demand_history.csv not found. Looked in: " + ", ".join(c for c in cands if c)
+                                + ". Upload the data files (demand_history.csv, item_master.csv, event_notes.csv, "
+                                  "future_actuals.csv, ground_truth.csv) to the repo, ideally in a data/ folder.")
+    return os.path.join(ROOT, "data")
+
+
+DATA = find_data_dir()
 
 N_HIST = 104                 # last history week (the "as-of" week for this cycle)
 HORIZON = 12                 # forecast weeks 105..116
@@ -67,7 +84,8 @@ class Engine:
 
     # ------------------------------------------------------------------ load
     @classmethod
-    def load(cls, data_dir: str = DATA) -> "Engine":
+    def load(cls, data_dir: str | None = None) -> "Engine":
+        data_dir = data_dir or find_data_dir(strict=True)
         e = cls()
         e.hist = pd.read_csv(os.path.join(data_dir, "demand_history.csv"))
         e.items = pd.read_csv(os.path.join(data_dir, "item_master.csv"))
