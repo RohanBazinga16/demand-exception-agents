@@ -1,0 +1,31 @@
+digraph G {
+  rankdir=TB; nodesep=0.3; ranksep=0.4; bgcolor="white"; newrank=true;
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10, color="#5A6B7B", penwidth=1.1];
+  edge [color="#5A6B7B", arrowsize=0.7, fontname="Helvetica", fontsize=8.5];
+
+  subgraph cluster_data { label="Data (synthetic, fictional Kaveri Foods)"; fontname="Helvetica-Bold"; fontsize=10; style="rounded,dashed"; color="#9AA8B5";
+    hist  [label="Demand history\n40 IWLs x 104 weeks", fillcolor="#EEF3F8"];
+    items [label="Item master\nservice class, shelf life, price", fillcolor="#EEF3F8"];
+    notes [label="Event notes (20)\npromo, listing, competitor, price,\ncustomer, supply - incl. distractors", fillcolor="#EEF3F8"];
+  }
+  subgraph cluster_crew { label="CrewAI crew  ·  Process.sequential  ·  Gemini 3.8 Flash (free tier)"; fontname="Helvetica-Bold"; fontsize=10; style="rounded"; color="#0B5394"; penwidth=1.4;
+    a1 [label="1  Demand Analyst\nportfolio_profile\niwl_history", fillcolor="#D6E8F5"];
+    a2 [label="2  Forecasting\nrun_baseline_forecast\nforecast_detail", fillcolor="#D6E8F5"];
+    a3 [label="3  Forecast Diagnosis\nexception_triage (5 KPIs, 4 lenses)\nsearch_event_notes (TF-IDF RAG)\niwl_history", fillcolor="#D6E8F5"];
+    a4 [label="4  Planning Recommendation\nreforecast_iwls\nforecast_detail", fillcolor="#D6E8F5"];
+  }
+  engine [label="Deterministic engine (Python): baseline forecast · KPIs · lens scores · buckets · retrieval · reforecast methods\nnumbers come from tools, judgement from the model; every tool call is logged", fillcolor="#F4F4F4"];
+  human [label="Human planner\napprove / edit / reject\n(Streamlit tab 5 or CLI)", fillcolor="#FCE6C9"];
+  audit [label="Audit trail\nruns/*.json (tool calls, outputs)\naudit_log.csv (who approved what)", fillcolor="#E6F2E1"];
+  evalb [label="Evaluation (offline only)\nground truth + hidden W105-W116\ndetection · retrieval · diagnosis · outcome", fillcolor="#E6F2E1"];
+
+  {rank=same; a1; a2; a3; a4;}
+  {rank=same; human; audit; evalb;}
+  hist -> a1; items -> a1; notes -> a3 [style=dashed, label=" retrieved\n per query"];
+  a1 -> a2 [label="profile"]; a2 -> a3 [label="accuracy"]; a3 -> a4 [label="Diagnosis\nReport"];
+  a1 -> engine [style=dotted, arrowhead=none]; a2 -> engine [style=dotted, arrowhead=none];
+  a3 -> engine [style=dotted, arrowhead=none]; a4 -> engine [style=dotted, arrowhead=none];
+  engine -> human [style=invis];
+  a4 -> human [label="Recommendation\nSet (proposals)"];
+  human -> audit -> evalb;
+}

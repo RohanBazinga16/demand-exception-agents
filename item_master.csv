@@ -1,0 +1,11 @@
+item_id,sku,pack,category,service_class,shelf_life_days,unit_price_inr
+OAT500,Rolled Oats,500g,Breakfast,A,270,165
+OAT1K,Rolled Oats,1kg,Breakfast,A,270,299
+MUS400,Fruit Muesli,400g,Breakfast,B,240,275
+MUS750,Fruit Muesli,750g,Breakfast,B,240,470
+GRA6,Granola Bar,6-pack,Snacks,A,120,180
+GRA12,Granola Bar,12-pack,Snacks,A,120,340
+POP60,Masala Popcorn,60g,Snacks,A,90,30
+POP150,Masala Popcorn,150g,Snacks,A,90,65
+CAK250,Eggless Cake Mix,250g,Baking,C,180,140
+CAK500,Eggless Cake Mix,500g,Baking,C,180,250

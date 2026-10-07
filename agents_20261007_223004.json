@@ -1,0 +1,1099 @@
+{
+ "mode": "agents",
+ "model": "gemini-3-flash-preview",
+ "started": "2026-10-07 22:20:00",
+ "seconds": 1069.0,
+ "usage": {
+  "total_tokens": 287696,
+  "prompt_tokens": 215600,
+  "cached_prompt_tokens": 24408,
+  "completion_tokens": 72096,
+  "reasoning_tokens": 49584,
+  "cache_creation_tokens": 0,
+  "successful_requests": 40
+ },
+ "analyst_summary": "**Data Coverage:**\nThe portfolio covers 40 IWLs (10 items across 4 DCs) over 104 weeks with no missing weeks. Portfolio forecastability has a median of 92, with 3 IWLs scoring below 40.\n\n**Intermittent & Low-Volume IWLs:**\nThese structurally hard-to-forecast lines should not be evaluated on standard weekly accuracy:\n- **Intermittent and low-volume:** CAK250-KOL (forecastability 10, zero share 0.46), CAK500-BLR (forecastability 10, zero share 0.56), and CAK500-KOL (forecastability 11, zero share 0.38).\n- **Low-volume:** CAK250-BLR (avg 61 units), CAK250-DEL (avg 88 units), CAK250-MUM (avg 93 units), CAK500-DEL (avg 47 units), and CAK500-MUM (avg 57 units).\n\n**Data-Quality Flags (Recent Outliers):**\n- CAK250-MUM: W[103]\n- CAK500-DEL: W[101]\n- GRA6-BLR: W[101, 102]\n- MUS750-MUM: W[101]\n- OAT1K-KOL: W[97, 98, 99]\n- OAT1K-MUM: W[97, 98, 99, 100, 101, 102, 103, 104]\n- POP60-BLR: W[99]",
+ "forecast_summary": "The statistical baseline forecast is complete. Portfolio performance at a 4-week lag shows a WAPE of 10.0% and a near-neutral bias of -0.4%.\n\n**Top Error IWLs (4-week bucket):**\n*   **MUS400-DEL:** 45%\n*   **GRA6-BLR:** 37%\n*   **GRA12-MUM:** 34%\n*   **CAK250-KOL:** 27%\n*   **OAT500-KOL:** 23%\n\n**Top Forecast Movers (vs last cycle):**\n*   **GRA6-BLR:** +15.0%\n*   **MUS400-DEL:** -8.0%\n*   **GRA12-MUM:** -6.5%\n*   **OAT1K-MUM:** +6.4%\n*   **CAK250-KOL:** -5.0%\n\n**Limitation:**\nThe baseline method utilizes category-pooled seasonality, which may fail to capture item-specific seasonal nuances, particularly for high-variance or intermittent lines like CAK250-KOL. Additionally, the low smoothing alpha (0.08) makes the model slow to react to genuine recent trend shifts.",
+ "diagnosis": {
+  "items": [
+   {
+    "iwl_id": "MUS400-DEL",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "LEVEL_SHIFT_DOWN",
+    "evidence_note_ids": [
+     "EV02",
+     "EV16"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "The 4-week bucket error of 45% and a level shift of -35% are explained by the launch of a competitor product (EV02) and a subsequent deep price cut (EV16) in the Delhi region.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "GRA6-BLR",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "ONE_OFF_SPIKE",
+    "evidence_note_ids": [
+     "EV03"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "Outliers in W101 and W102 and a 37% error align perfectly with a confirmed BOGO promotion in Bengaluru (EV03) that was a one-off event.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "OAT500-KOL",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "PACK_MIX_SHIFT",
+    "evidence_note_ids": [
+     "EV07"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "A 12% price increase on the 500g pack (EV07) led to a -24% level shift as shoppers traded up to the 1kg pack, which saw a corresponding +24% shift.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "OAT1K-MUM",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "LEVEL_SHIFT_UP",
+    "evidence_note_ids": [
+     "EV01"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "A permanent listing gain at MetroMart Mumbai (EV01) starting W097 explains the sustained +38% level shift and persistent positive bias.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "GRA12-MUM",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "LEVEL_SHIFT_DOWN",
+    "evidence_note_ids": [],
+    "evidence_status": "no_evidence_found",
+    "reasoning": "History shows a sharp drop in deseasonalised demand from ~370 to ~260 starting W098, resulting in a -29% level shift, though no specific event note was found.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "OAT1K-KOL",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "PACK_MIX_SHIFT",
+    "evidence_note_ids": [
+     "EV07"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "The +24% level shift is the counterpart to the OAT500-KOL drop, driven by shoppers trading up following the 500g price increase (EV07).",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "POP150-DEL",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Low-Touch",
+    "cause": "NONE",
+    "evidence_note_ids": [
+     "EV06"
+    ],
+    "evidence_status": "conflicting",
+    "reasoning": "The festive promotion (EV05) that triggered the triage flag was explicitly cancelled by a later update (EV06); current error is negligible (5%).",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "POP150-MUM",
+    "engine_bucket": "Action-Required",
+    "final_bucket": "Action-Required",
+    "cause": "UPCOMING_PROMO",
+    "evidence_note_ids": [
+     "EV04"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "A confirmed festive promotion for W106-W108 (EV04) is correctly identified in the horizon, requiring no change to the current triage status.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "MUS750-DEL",
+    "engine_bucket": "Monitor",
+    "final_bucket": "Low-Touch",
+    "cause": "NONE",
+    "evidence_note_ids": [],
+    "evidence_status": "no_evidence_found",
+    "reasoning": "With only 5% error and no active exceptions or notes, this IWL does not require monitoring and is downgraded to Low-Touch.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "MUS750-MUM",
+    "engine_bucket": "Monitor",
+    "final_bucket": "Monitor",
+    "cause": "WEEKLY_PHASING",
+    "evidence_note_ids": [
+     "EV08"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "A shift to monthly replenishment by a major customer (EV08) explains the lumpy weekly pattern and outliers despite a low 4-week bucket error of 6%.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "GRA12-DEL",
+    "engine_bucket": "Monitor",
+    "final_bucket": "Monitor",
+    "cause": "BIAS_DRIFT",
+    "evidence_note_ids": [],
+    "evidence_status": "no_evidence_found",
+    "reasoning": "A moderate -14% level shift and 11% error suggest a slow drift in demand; no specific event notes explain the change.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "CAK250-KOL",
+    "engine_bucket": "Structurally-Noisy",
+    "final_bucket": "Structurally-Noisy",
+    "cause": "STRUCTURAL_NOISE",
+    "evidence_note_ids": [
+     "EV11"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "Extremely low forecastability (10) and lumpy institutional demand (EV11) confirm this IWL is structurally noisy.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "CAK500-BLR",
+    "engine_bucket": "Structurally-Noisy",
+    "final_bucket": "Structurally-Noisy",
+    "cause": "STRUCTURAL_NOISE",
+    "evidence_note_ids": [],
+    "evidence_status": "no_evidence_found",
+    "reasoning": "Forecastability of 10 and high bias change indicate structural noise typical of the cake mix category, despite the lack of a specific note for Bengaluru.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "CAK500-KOL",
+    "engine_bucket": "Structurally-Noisy",
+    "final_bucket": "Structurally-Noisy",
+    "cause": "STRUCTURAL_NOISE",
+    "evidence_note_ids": [
+     "EV11"
+    ],
+    "evidence_status": "supported",
+    "reasoning": "Institutional ordering patterns in the East (EV11) and low forecastability (11) justify the Structurally-Noisy classification.",
+    "confidence": "high"
+   }
+  ],
+  "summary": "The portfolio is largely stable, but significant level shifts are observed in Muesli and Oats. MUS400-DEL is facing strong competitive pressure from GrainCo, while OAT1K-MUM has gained a permanent listing at MetroMart. A price increase in Kolkata has successfully shifted volume from 500g to 1kg Oats. Several IWLs previously flagged for promotions or monitoring have been downgraded to Low-Touch due to cancelled activities or low error rates."
+ },
+ "diagnosis_raw": "{\n  \"items\": [\n    {\n      \"iwl_id\": \"MUS400-DEL\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\n      \"evidence_note_ids\": [\n        \"EV02\",\n        \"EV16\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"The 4-week bucket error of 45% and a level shift of -35% are explained by the launch of a competitor product (EV02) and a subsequent deep price cut (EV16) in the Delhi region.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"GRA6-BLR\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"ONE_OFF_SPIKE\",\n      \"evidence_note_ids\": [\n        \"EV03\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"Outliers in W101 and W102 and a 37% error align perfectly with a confirmed BOGO promotion in Bengaluru (EV03) that was a one-off event.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"OAT500-KOL\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"PACK_MIX_SHIFT\",\n      \"evidence_note_ids\": [\n        \"EV07\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"A 12% price increase on the 500g pack (EV07) led to a -24% level shift as shoppers traded up to the 1kg pack, which saw a corresponding +24% shift.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"OAT1K-MUM\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"LEVEL_SHIFT_UP\",\n      \"evidence_note_ids\": [\n        \"EV01\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"A permanent listing gain at MetroMart Mumbai (EV01) starting W097 explains the sustained +38% level shift and persistent positive bias.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"GRA12-MUM\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\n      \"evidence_note_ids\": [],\n      \"evidence_status\": \"no_evidence_found\",\n      \"reasoning\": \"History shows a sharp drop in deseasonalised demand from ~370 to ~260 starting W098, resulting in a -29% level shift, though no specific event note was found.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"OAT1K-KOL\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"PACK_MIX_SHIFT\",\n      \"evidence_note_ids\": [\n        \"EV07\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"The +24% level shift is the counterpart to the OAT500-KOL drop, driven by shoppers trading up following the 500g price increase (EV07).\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"POP150-DEL\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Low-Touch\",\n      \"cause\": \"NONE\",\n      \"evidence_note_ids\": [\n        \"EV06\"\n      ],\n      \"evidence_status\": \"conflicting\",\n      \"reasoning\": \"The festive promotion (EV05) that triggered the triage flag was explicitly cancelled by a later update (EV06); current error is negligible (5%).\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"POP150-MUM\",\n      \"engine_bucket\": \"Action-Required\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"UPCOMING_PROMO\",\n      \"evidence_note_ids\": [\n        \"EV04\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"A confirmed festive promotion for W106-W108 (EV04) is correctly identified in the horizon, requiring no change to the current triage status.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"MUS750-DEL\",\n      \"engine_bucket\": \"Monitor\",\n      \"final_bucket\": \"Low-Touch\",\n      \"cause\": \"NONE\",\n      \"evidence_note_ids\": [],\n      \"evidence_status\": \"no_evidence_found\",\n      \"reasoning\": \"With only 5% error and no active exceptions or notes, this IWL does not require monitoring and is downgraded to Low-Touch.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"MUS750-MUM\",\n      \"engine_bucket\": \"Monitor\",\n      \"final_bucket\": \"Monitor\",\n      \"cause\": \"WEEKLY_PHASING\",\n      \"evidence_note_ids\": [\n        \"EV08\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"A shift to monthly replenishment by a major customer (EV08) explains the lumpy weekly pattern and outliers despite a low 4-week bucket error of 6%.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"GRA12-DEL\",\n      \"engine_bucket\": \"Monitor\",\n      \"final_bucket\": \"Monitor\",\n      \"cause\": \"BIAS_DRIFT\",\n      \"evidence_note_ids\": [],\n      \"evidence_status\": \"no_evidence_found\",\n      \"reasoning\": \"A moderate -14% level shift and 11% error suggest a slow drift in demand; no specific event notes explain the change.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"CAK250-KOL\",\n      \"engine_bucket\": \"Structurally-Noisy\",\n      \"final_bucket\": \"Structurally-Noisy\",\n      \"cause\": \"STRUCTURAL_NOISE\",\n      \"evidence_note_ids\": [\n        \"EV11\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"Extremely low forecastability (10) and lumpy institutional demand (EV11) confirm this IWL is structurally noisy.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"CAK500-BLR\",\n      \"engine_bucket\": \"Structurally-Noisy\",\n      \"final_bucket\": \"Structurally-Noisy\",\n      \"cause\": \"STRUCTURAL_NOISE\",\n      \"evidence_note_ids\": [],\n      \"evidence_status\": \"no_evidence_found\",\n      \"reasoning\": \"Forecastability of 10 and high bias change indicate structural noise typical of the cake mix category, despite the lack of a specific note for Bengaluru.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"CAK500-KOL\",\n      \"engine_bucket\": \"Structurally-Noisy\",\n      \"final_bucket\": \"Structurally-Noisy\",\n      \"cause\": \"STRUCTURAL_NOISE\",\n      \"evidence_note_ids\": [\n        \"EV11\"\n      ],\n      \"evidence_status\": \"supported\",\n      \"reasoning\": \"Institutional ordering patterns in the East (EV11) and low forecastability (11) justify the Structurally-Noisy classification.\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"summary\": \"The portfolio is largely stable, but significant level shifts are observed in Muesli and Oats. MUS400-DEL is facing strong competitive pressure from GrainCo, while OAT1K-MUM has gained a permanent listing at MetroMart. A price increase in Kolkata has successfully shifted volume from 500g to 1kg Oats. Several IWLs previously flagged for promotions or monitoring have been downgraded to Low-Touch due to cancelled activities or low error rates.\"\n}",
+ "recommendations": {
+  "recommendations": [
+   {
+    "iwl_id": "MUS400-DEL",
+    "final_bucket": "Action-Required",
+    "cause": "LEVEL_SHIFT_DOWN",
+    "action": "relevel",
+    "params_json": "{\"recent_weeks\": 6}",
+    "evidence_note_ids": [
+     "EV02",
+     "EV16"
+    ],
+    "horizon_change_pct": -21.9,
+    "rationale": "A -35% level shift caused by a competitor launch (EV02) and price cut (EV16) is addressed by releveling to the last 6 weeks of demand.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "GRA6-BLR",
+    "final_bucket": "Action-Required",
+    "cause": "ONE_OFF_SPIKE",
+    "action": "cleanse_spike",
+    "params_json": "{\"spike_weeks\": [101, 102]}",
+    "evidence_note_ids": [
+     "EV03"
+    ],
+    "horizon_change_pct": -13.7,
+    "rationale": "The one-off BOGO promotion in W101-W102 (EV03) created a temporary spike; cleansing these weeks prevents the forecast from chasing the outlier.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "OAT500-KOL",
+    "final_bucket": "Action-Required",
+    "cause": "PACK_MIX_SHIFT",
+    "action": "relevel",
+    "params_json": "{\"recent_weeks\": 6}",
+    "evidence_note_ids": [
+     "EV07"
+    ],
+    "horizon_change_pct": -14.1,
+    "rationale": "A 12% price increase (EV07) led to a -24% level shift as shoppers traded up; releveling to the last 6 weeks captures the new lower baseline.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "OAT1K-MUM",
+    "final_bucket": "Action-Required",
+    "cause": "LEVEL_SHIFT_UP",
+    "action": "relevel",
+    "params_json": "{\"recent_weeks\": 8}",
+    "evidence_note_ids": [
+     "EV01"
+    ],
+    "horizon_change_pct": 16.7,
+    "rationale": "Permanent listing gain at MetroMart (EV01) since W097 sustained a +38% shift; releveling to the last 8 weeks aligns the forecast with current volume.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "GRA12-MUM",
+    "final_bucket": "Action-Required",
+    "cause": "LEVEL_SHIFT_DOWN",
+    "action": "relevel",
+    "params_json": "{\"recent_weeks\": 7}",
+    "evidence_note_ids": [],
+    "horizon_change_pct": -17.8,
+    "rationale": "Deseasonalised demand dropped significantly starting W098 (-29% shift); releveling to the last 7 weeks reflects this structural change.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "OAT1K-KOL",
+    "final_bucket": "Action-Required",
+    "cause": "PACK_MIX_SHIFT",
+    "action": "relevel",
+    "params_json": "{\"recent_weeks\": 6}",
+    "evidence_note_ids": [
+     "EV07"
+    ],
+    "horizon_change_pct": 8.9,
+    "rationale": "Counterpart to the 500g drop, this +24% shift from trade-ups (EV07) is captured by releveling to the last 6 weeks of history.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "POP150-DEL",
+    "final_bucket": "Low-Touch",
+    "cause": "NONE",
+    "action": "no_change",
+    "params_json": "{}",
+    "evidence_note_ids": [
+     "EV06"
+    ],
+    "horizon_change_pct": 0.0,
+    "rationale": "The festive promotion was explicitly cancelled (EV06) and current error is negligible (5%), requiring no further action.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "POP150-MUM",
+    "final_bucket": "Action-Required",
+    "cause": "UPCOMING_PROMO",
+    "action": "no_change",
+    "params_json": "{}",
+    "evidence_note_ids": [
+     "EV04"
+    ],
+    "horizon_change_pct": 0.0,
+    "rationale": "The confirmed festive promotion for W106-W108 (EV04) is already correctly identified in the horizon; no additional adjustment is needed.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "MUS750-DEL",
+    "final_bucket": "Low-Touch",
+    "cause": "NONE",
+    "action": "no_change",
+    "params_json": "{}",
+    "evidence_note_ids": [],
+    "horizon_change_pct": 0.0,
+    "rationale": "With only 5% error and no active exceptions or notes, this IWL is stable and downgraded to Low-Touch.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "MUS750-MUM",
+    "final_bucket": "Monitor",
+    "cause": "WEEKLY_PHASING",
+    "action": "rephase_weekly",
+    "params_json": "{}",
+    "evidence_note_ids": [
+     "EV08"
+    ],
+    "horizon_change_pct": -0.2,
+    "rationale": "A shift to monthly replenishment (EV08) explains the lumpy weekly pattern; rephasing improves weekly alignment while maintaining the 4-week total.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "GRA12-DEL",
+    "final_bucket": "Monitor",
+    "cause": "BIAS_DRIFT",
+    "action": "no_change",
+    "params_json": "{}",
+    "evidence_note_ids": [],
+    "horizon_change_pct": 0.0,
+    "rationale": "A moderate -14% level shift and 11% error suggest a slow drift; monitoring is recommended before taking corrective action.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "CAK250-KOL",
+    "final_bucket": "Structurally-Noisy",
+    "cause": "STRUCTURAL_NOISE",
+    "action": "aggregate",
+    "params_json": "{}",
+    "evidence_note_ids": [
+     "EV11"
+    ],
+    "horizon_change_pct": 37.5,
+    "rationale": "Low forecastability (10) and lumpy institutional demand (EV11) confirm this item is structurally noisy and better planned at an aggregate level.",
+    "confidence": "high"
+   },
+   {
+    "iwl_id": "CAK500-BLR",
+    "final_bucket": "Structurally-Noisy",
+    "cause": "STRUCTURAL_NOISE",
+    "action": "aggregate",
+    "params_json": "{}",
+    "evidence_note_ids": [],
+    "horizon_change_pct": -2.5,
+    "rationale": "High bias change and low forecastability (10) indicate structural noise typical of the category; aggregate planning is recommended.",
+    "confidence": "medium"
+   },
+   {
+    "iwl_id": "CAK500-KOL",
+    "final_bucket": "Structurally-Noisy",
+    "cause": "STRUCTURAL_NOISE",
+    "action": "aggregate",
+    "params_json": "{}",
+    "evidence_note_ids": [
+     "EV11"
+    ],
+    "horizon_change_pct": 6.5,
+    "rationale": "Institutional ordering patterns (EV11) and low forecastability (11) justify moving this item to aggregate planning.",
+    "confidence": "high"
+   }
+  ],
+  "planner_summary": "Prioritize approving the releveling for MUS400-DEL and OAT1K-MUM to account for significant competitive pressure and listing gains. Cleanse the one-off BOGO spike for GRA6-BLR to prevent over-forecasting. Cake mix items are moved to aggregate planning to handle structural noise, while stable items are downgraded to Low-Touch."
+ },
+ "recommendations_raw": "{\n  \"recommendations\": [\n    {\n      \"iwl_id\": \"MUS400-DEL\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\n      \"action\": \"relevel\",\n      \"params_json\": \"{\\\"recent_weeks\\\": 6}\",\n      \"evidence_note_ids\": [\n        \"EV02\",\n        \"EV16\"\n      ],\n      \"horizon_change_pct\": -21.9,\n      \"rationale\": \"A -35% level shift caused by a competitor launch (EV02) and price cut (EV16) is addressed by releveling to the last 6 weeks of demand.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"GRA6-BLR\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"ONE_OFF_SPIKE\",\n      \"action\": \"cleanse_spike\",\n      \"params_json\": \"{\\\"spike_weeks\\\": [101, 102]}\",\n      \"evidence_note_ids\": [\n        \"EV03\"\n      ],\n      \"horizon_change_pct\": -13.7,\n      \"rationale\": \"The one-off BOGO promotion in W101-W102 (EV03) created a temporary spike; cleansing these weeks prevents the forecast from chasing the outlier.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"OAT500-KOL\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"PACK_MIX_SHIFT\",\n      \"action\": \"relevel\",\n      \"params_json\": \"{\\\"recent_weeks\\\": 6}\",\n      \"evidence_note_ids\": [\n        \"EV07\"\n      ],\n      \"horizon_change_pct\": -14.1,\n      \"rationale\": \"A 12% price increase (EV07) led to a -24% level shift as shoppers traded up; releveling to the last 6 weeks captures the new lower baseline.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"OAT1K-MUM\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"LEVEL_SHIFT_UP\",\n      \"action\": \"relevel\",\n      \"params_json\": \"{\\\"recent_weeks\\\": 8}\",\n      \"evidence_note_ids\": [\n        \"EV01\"\n      ],\n      \"horizon_change_pct\": 16.7,\n      \"rationale\": \"Permanent listing gain at MetroMart (EV01) since W097 sustained a +38% shift; releveling to the last 8 weeks aligns the forecast with current volume.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"GRA12-MUM\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\n      \"action\": \"relevel\",\n      \"params_json\": \"{\\\"recent_weeks\\\": 7}\",\n      \"evidence_note_ids\": [],\n      \"horizon_change_pct\": -17.8,\n      \"rationale\": \"Deseasonalised demand dropped significantly starting W098 (-29% shift); releveling to the last 7 weeks reflects this structural change.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"OAT1K-KOL\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"PACK_MIX_SHIFT\",\n      \"action\": \"relevel\",\n      \"params_json\": \"{\\\"recent_weeks\\\": 6}\",\n      \"evidence_note_ids\": [\n        \"EV07\"\n      ],\n      \"horizon_change_pct\": 8.9,\n      \"rationale\": \"Counterpart to the 500g drop, this +24% shift from trade-ups (EV07) is captured by releveling to the last 6 weeks of history.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"POP150-DEL\",\n      \"final_bucket\": \"Low-Touch\",\n      \"cause\": \"NONE\",\n      \"action\": \"no_change\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [\n        \"EV06\"\n      ],\n      \"horizon_change_pct\": 0.0,\n      \"rationale\": \"The festive promotion was explicitly cancelled (EV06) and current error is negligible (5%), requiring no further action.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"POP150-MUM\",\n      \"final_bucket\": \"Action-Required\",\n      \"cause\": \"UPCOMING_PROMO\",\n      \"action\": \"no_change\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [\n        \"EV04\"\n      ],\n      \"horizon_change_pct\": 0.0,\n      \"rationale\": \"The confirmed festive promotion for W106-W108 (EV04) is already correctly identified in the horizon; no additional adjustment is needed.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"MUS750-DEL\",\n      \"final_bucket\": \"Low-Touch\",\n      \"cause\": \"NONE\",\n      \"action\": \"no_change\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [],\n      \"horizon_change_pct\": 0.0,\n      \"rationale\": \"With only 5% error and no active exceptions or notes, this IWL is stable and downgraded to Low-Touch.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"MUS750-MUM\",\n      \"final_bucket\": \"Monitor\",\n      \"cause\": \"WEEKLY_PHASING\",\n      \"action\": \"rephase_weekly\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [\n        \"EV08\"\n      ],\n      \"horizon_change_pct\": -0.2,\n      \"rationale\": \"A shift to monthly replenishment (EV08) explains the lumpy weekly pattern; rephasing improves weekly alignment while maintaining the 4-week total.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"GRA12-DEL\",\n      \"final_bucket\": \"Monitor\",\n      \"cause\": \"BIAS_DRIFT\",\n      \"action\": \"no_change\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [],\n      \"horizon_change_pct\": 0.0,\n      \"rationale\": \"A moderate -14% level shift and 11% error suggest a slow drift; monitoring is recommended before taking corrective action.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"CAK250-KOL\",\n      \"final_bucket\": \"Structurally-Noisy\",\n      \"cause\": \"STRUCTURAL_NOISE\",\n      \"action\": \"aggregate\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [\n        \"EV11\"\n      ],\n      \"horizon_change_pct\": 37.5,\n      \"rationale\": \"Low forecastability (10) and lumpy institutional demand (EV11) confirm this item is structurally noisy and better planned at an aggregate level.\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"iwl_id\": \"CAK500-BLR\",\n      \"final_bucket\": \"Structurally-Noisy\",\n      \"cause\": \"STRUCTURAL_NOISE\",\n      \"action\": \"aggregate\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [],\n      \"horizon_change_pct\": -2.5,\n      \"rationale\": \"High bias change and low forecastability (10) indicate structural noise typical of the category; aggregate planning is recommended.\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"iwl_id\": \"CAK500-KOL\",\n      \"final_bucket\": \"Structurally-Noisy\",\n      \"cause\": \"STRUCTURAL_NOISE\",\n      \"action\": \"aggregate\",\n      \"params_json\": \"{}\",\n      \"evidence_note_ids\": [\n        \"EV11\"\n      ],\n      \"horizon_change_pct\": 6.5,\n      \"rationale\": \"Institutional ordering patterns (EV11) and low forecastability (11) justify moving this item to aggregate planning.\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"planner_summary\": \"Prioritize approving the releveling for MUS400-DEL and OAT1K-MUM to account for significant competitive pressure and listing gains. Cleanse the one-off BOGO spike for GRA6-BLR to prevent over-forecasting. Cake mix items are moved to aggregate planning to handle structural noise, while stable items are downgraded to Low-Touch.\"\n}",
+ "proposals": {
+  "MUS400-DEL": {
+   "method": "relevel",
+   "params": {
+    "recent_weeks": 6
+   },
+   "baseline": [
+    365.4,
+    371.0,
+    378.2,
+    378.9,
+    384.4,
+    389.5,
+    392.4,
+    397.2,
+    398.1,
+    400.1,
+    399.2,
+    398.0
+   ],
+   "reforecast": [
+    285.3,
+    289.7,
+    295.3,
+    295.9,
+    300.2,
+    304.1,
+    306.4,
+    310.1,
+    310.8,
+    312.4,
+    311.7,
+    310.8
+   ]
+  },
+  "GRA6-BLR": {
+   "method": "cleanse_spike",
+   "params": {
+    "spike_weeks": [
+     101,
+     102
+    ]
+   },
+   "baseline": [
+    682.0,
+    743.1,
+    836.7,
+    887.1,
+    903.5,
+    853.8,
+    790.8,
+    732.2,
+    683.1,
+    661.5,
+    642.5,
+    647.7
+   ],
+   "reforecast": [
+    588.5,
+    641.2,
+    722.0,
+    765.5,
+    779.6,
+    736.8,
+    682.4,
+    631.8,
+    589.5,
+    570.8,
+    554.5,
+    558.9
+   ]
+  },
+  "OAT500-KOL": {
+   "method": "relevel",
+   "params": {
+    "recent_weeks": 6
+   },
+   "baseline": [
+    499.4,
+    507.0,
+    516.9,
+    517.9,
+    525.4,
+    532.2,
+    536.3,
+    542.8,
+    544.1,
+    546.8,
+    545.6,
+    544.0
+   ],
+   "reforecast": [
+    429.0,
+    435.4,
+    444.0,
+    444.8,
+    451.2,
+    457.1,
+    460.7,
+    466.2,
+    467.3,
+    469.6,
+    468.6,
+    467.2
+   ]
+  },
+  "OAT1K-MUM": {
+   "method": "relevel",
+   "params": {
+    "recent_weeks": 8
+   },
+   "baseline": [
+    661.4,
+    671.4,
+    684.6,
+    685.9,
+    695.8,
+    704.9,
+    710.3,
+    718.9,
+    720.5,
+    724.1,
+    722.5,
+    720.4
+   ],
+   "reforecast": [
+    772.1,
+    783.7,
+    799.1,
+    800.6,
+    812.2,
+    822.8,
+    829.1,
+    839.2,
+    841.1,
+    845.2,
+    843.4,
+    841.0
+   ]
+  },
+  "GRA12-MUM": {
+   "method": "relevel",
+   "params": {
+    "recent_weeks": 7
+   },
+   "baseline": [
+    323.8,
+    352.9,
+    397.3,
+    421.2,
+    429.0,
+    405.4,
+    375.5,
+    347.7,
+    324.4,
+    314.1,
+    305.1,
+    307.5
+   ],
+   "reforecast": [
+    266.3,
+    290.1,
+    326.7,
+    346.3,
+    352.7,
+    333.4,
+    308.7,
+    285.9,
+    266.7,
+    258.3,
+    250.9,
+    252.9
+   ]
+  },
+  "OAT1K-KOL": {
+   "method": "relevel",
+   "params": {
+    "recent_weeks": 6
+   },
+   "baseline": [
+    372.1,
+    377.8,
+    385.2,
+    385.9,
+    391.5,
+    396.6,
+    399.6,
+    404.5,
+    405.4,
+    407.4,
+    406.5,
+    405.3
+   ],
+   "reforecast": [
+    405.1,
+    411.2,
+    419.3,
+    420.1,
+    426.1,
+    431.7,
+    435.0,
+    440.3,
+    441.3,
+    443.5,
+    442.5,
+    441.2
+   ]
+  },
+  "POP150-DEL": {
+   "method": "no_change",
+   "params": {},
+   "baseline": [
+    666.9,
+    726.6,
+    818.2,
+    867.4,
+    883.4,
+    834.9,
+    773.2,
+    715.9,
+    667.9,
+    646.8,
+    628.3,
+    633.3
+   ],
+   "reforecast": [
+    666.9,
+    726.6,
+    818.2,
+    867.4,
+    883.4,
+    834.9,
+    773.2,
+    715.9,
+    667.9,
+    646.8,
+    628.3,
+    633.3
+   ]
+  },
+  "POP150-MUM": {
+   "method": "no_change",
+   "params": {},
+   "baseline": [
+    686.8,
+    748.3,
+    842.6,
+    893.3,
+    909.8,
+    859.8,
+    796.3,
+    737.3,
+    687.9,
+    666.1,
+    647.0,
+    652.2
+   ],
+   "reforecast": [
+    686.8,
+    748.3,
+    842.6,
+    893.3,
+    909.8,
+    859.8,
+    796.3,
+    737.3,
+    687.9,
+    666.1,
+    647.0,
+    652.2
+   ]
+  },
+  "MUS750-DEL": {
+   "method": "no_change",
+   "params": {},
+   "baseline": [
+    278.0,
+    282.2,
+    287.7,
+    288.3,
+    292.4,
+    296.3,
+    298.5,
+    302.2,
+    302.8,
+    304.4,
+    303.7,
+    302.8
+   ],
+   "reforecast": [
+    278.0,
+    282.2,
+    287.7,
+    288.3,
+    292.4,
+    296.3,
+    298.5,
+    302.2,
+    302.8,
+    304.4,
+    303.7,
+    302.8
+   ]
+  },
+  "MUS750-MUM": {
+   "method": "rephase_weekly",
+   "params": {},
+   "baseline": [
+    267.2,
+    271.3,
+    276.6,
+    277.1,
+    281.1,
+    284.8,
+    287.0,
+    290.5,
+    291.1,
+    292.6,
+    291.9,
+    291.1
+   ],
+   "reforecast": [
+    423.6,
+    218.4,
+    222.7,
+    223.1,
+    445.6,
+    229.2,
+    231.0,
+    233.8,
+    234.3,
+    463.8,
+    235.0,
+    234.3
+   ]
+  },
+  "GRA12-DEL": {
+   "method": "no_change",
+   "params": {},
+   "baseline": [
+    297.1,
+    323.7,
+    364.5,
+    386.4,
+    393.5,
+    371.9,
+    344.4,
+    318.9,
+    297.5,
+    288.1,
+    279.9,
+    282.1
+   ],
+   "reforecast": [
+    297.1,
+    323.7,
+    364.5,
+    386.4,
+    393.5,
+    371.9,
+    344.4,
+    318.9,
+    297.5,
+    288.1,
+    279.9,
+    282.1
+   ]
+  },
+  "CAK250-KOL": {
+   "method": "aggregate",
+   "params": {},
+   "baseline": [
+    38.7,
+    44.1,
+    50.0,
+    54.6,
+    54.9,
+    52.4,
+    46.5,
+    41.3,
+    37.4,
+    35.2,
+    34.5,
+    33.8
+   ],
+   "reforecast": [
+    53.2,
+    60.7,
+    68.7,
+    75.1,
+    75.5,
+    72.1,
+    63.9,
+    56.7,
+    51.5,
+    48.4,
+    47.4,
+    46.5
+   ]
+  },
+  "CAK500-BLR": {
+   "method": "aggregate",
+   "params": {},
+   "baseline": [
+    35.1,
+    40.0,
+    45.4,
+    49.6,
+    49.8,
+    47.6,
+    42.2,
+    37.4,
+    34.0,
+    31.9,
+    31.3,
+    30.7
+   ],
+   "reforecast": [
+    34.2,
+    39.0,
+    44.2,
+    48.3,
+    48.6,
+    46.4,
+    41.2,
+    36.5,
+    33.1,
+    31.1,
+    30.5,
+    29.9
+   ]
+  },
+  "CAK500-KOL": {
+   "method": "aggregate",
+   "params": {},
+   "baseline": [
+    38.0,
+    43.4,
+    49.2,
+    53.7,
+    54.0,
+    51.6,
+    45.7,
+    40.6,
+    36.8,
+    34.6,
+    33.9,
+    33.2
+   ],
+   "reforecast": [
+    40.5,
+    46.2,
+    52.3,
+    57.2,
+    57.4,
+    54.9,
+    48.7,
+    43.2,
+    39.2,
+    36.8,
+    36.1,
+    35.4
+   ]
+  }
+ },
+ "tool_log": [
+  {
+   "ts": "22:02:15",
+   "tool": "portfolio_profile",
+   "args": "{}",
+   "result_chars": 3371,
+   "result": "Portfolio: 40 IWLs (10 items x 4 DCs), 104 weeks of weekly shipments, no missing weeks.\nForecastability 0-100 (higher = easier): median 92, 3 IWLs below 40.\niwl_id | item | loc | class | avg_units_26w | cov | zero_share | forecastability | flags\nCAK250-BLR | Eggless Cake Mix 250g | BLR | C | 61 | 0.06 | 0.00 | 80 | low-volume\nCAK250-DEL | Eggless Cake Mix 250g | DEL | C | 88 | 0.08 | 0.00 | 92 | low-volume\nCAK250-KOL | Eggless Cake Mix 250g | KOL | C | 43 | 1.06 | 0.46 | 10 | intermittent,low-volume\nCAK250-MUM | Eggless Cake Mix 250g | MUM | C | 93 | 0.07 | 0.00 | 93 | low-volume,recent outliers W[103]\nCAK500-BLR | Eggless Cake Mix 500g | BLR | C | 37 | 1.43 | 0.56 | 10 | intermittent,low-volume\nCAK500-DEL | Eggless Cake Mix 500g | DEL | C | 47 | 0.09 | 0.00 | 91 | low-volume,recent outliers W[101]\nCAK500-KOL | Eggless Cake Mix 500g | KOL | C | 34 | 1.06 | 0.38 | 11 | intermittent,low-volume\nCAK500-MUM | Eggless Cake Mix 500g | MUM | C | 57 | 0.08 | 0.00 | 92 | low-volume\nGRA12-BLR | Granola Bar 12-pack | BLR | A | 248 | 0.07 | 0.00 | 93 | -\nGRA12-DEL | Granola Bar 12-pack | DEL | A | 292 | 0.08 | 0.00 | 91 | -\nGRA12-KOL | Granola Bar 12-pack | KOL | A | 164 | 0.07 | 0.00 | 92 | -\nGRA12-MUM | Granola Bar 12-pack | MUM | A | 328 | 0.09 | 0.00 | 92 | -\nGRA6-BLR | Granola Bar 6-pack | BLR | A | 617 | 0.08 | 0.00 | 92 | recent outliers W[101, 102]\nGRA6-DEL | Granola Bar 6-pack | DEL | A | 651 | 0.09 | 0.00 | 91 | -\nGRA6-KOL | Granola Bar 6-pack | KOL | A | 435 | 0.09 | 0.00 | 91 | -\nGRA6-MUM | Granola Bar 6-pack | MUM | A | 820 | 0.08 | 0.00 | 93 | -\nMUS400-BLR | Fruit Muesli 400g | BLR | B | 341 | 0.07 | 0.00 | 93 | -\nMUS400-DEL | Fruit Muesli 400g | DEL | B | 375 | 0.08 | 0.00 | 92 | -\nMUS400-KOL | Fruit Muesli 400g | KOL | B | 252 | 0.08 | 0.00 | 92 | -\nMUS400-MUM | Fruit Muesli 400g | MUM | B | 440 | 0.07 | 0.00 | 93 | -\nMUS750-BLR | Fruit Muesli 750g | BLR | B | 210 | 0.08 | 0.00 | 92 | -\nMUS750-DEL | Fruit Muesli 750g | DEL | B | 264 | 0.09 | 0.00 | 92 | -\nMUS750-KOL | Fruit Muesli 750g | KOL | B | 140 | 0.08 | 0.00 | 93 | -\nMUS750-MUM | Fruit Muesli 750g | MUM | B | 255 | 0.12 | 0.00 | 89 | recent outliers W[101]\nOAT1K-BLR | Rolled Oats 1kg | BLR | A | 367 | 0.07 | 0.00 | 93 | -\nOAT1K-DEL | Rolled Oats 1kg | DEL | A | 529 | 0.08 | 0.00 | 91 | -\nOAT1K-KOL | Rolled Oats 1kg | KOL | A | 340 | 0.10 | 0.00 | 90 | recent outliers W[97, 98, 99]\nOAT1K-MUM | Rolled Oats 1kg | MUM | A | 596 | 0.07 | 0.00 | 93 | recent outliers W[97, 98, 99, 100, 101, 102, 103, 104]\nOAT500-BLR | Rolled Oats 500g | BLR | A | 845 | 0.08 | 0.00 | 92 | -\nOAT500-DEL | Rolled Oats 500g | DEL | A | 1033 | 0.07 | 0.00 | 92 | -\nOAT500-KOL | Rolled Oats 500g | KOL | A | 498 | 0.08 | 0.00 | 90 | -\nOAT500-MUM | Rolled Oats 500g | MUM | A | 1162 | 0.06 | 0.00 | 94 | -\nPOP150-BLR | Masala Popcorn 150g | BLR | A | 530 | 0.09 | 0.00 | 92 | -\nPOP150-DEL | Masala Popcorn 150g | DEL | A | 636 | 0.08 | 0.00 | 92 | -\nPOP150-KOL | Masala Popcorn 150g | KOL | A | 382 | 0.07 | 0.00 | 93 | -\nPOP150-MUM | Masala Popcorn 150g | MUM | A | 648 | 0.07 | 0.00 | 93 | -\nPOP60-BLR | Masala Popcorn 60g | BLR | A | 1004 | 0.07 | 0.00 | 94 | recent outliers W[99]\nPOP60-DEL | Masala Popcorn 60g | DEL | A | 1293 | 0.09 | 0.00 | 91 | -\nPOP60-KOL | Masala Popcorn 60g | KOL | A | 704 | 0.08 | 0.00 | 92 | -\nPOP60-MUM | Masala Popcorn 60g | MUM | A | 1346 | 0.08 | 0.00 | 92 | -"
+  },
+  {
+   "ts": "22:03:37",
+   "tool": "run_baseline_forecast",
+   "args": "{}",
+   "result_chars": 845,
+   "result": "Method: seasonal index (category-pooled, 52 weeks) x exponentially smoothed level (alpha 0.08). Accuracy measured at a 4-week lag over W097-W104.\nPortfolio WAPE 10.0%, portfolio bias -0.4% (positive = over-forecast).\nLargest 4-week bucket errors (iwl | 4w bucket error | 8w WAPE | 8w bias):\n  MUS400-DEL | 45% | 45% | +45%\n  GRA6-BLR | 37% | 30% | -24%\n  GRA12-MUM | 34% | 31% | +30%\n  CAK250-KOL | 27% | 135% | +66%\n  OAT500-KOL | 23% | 30% | +30%\n  OAT1K-MUM | 21% | 25% | -25%\n  CAK500-KOL | 15% | 46% | +13%\n  OAT1K-KOL | 12% | 18% | -18%\n  POP150-BLR | 12% | 8% | +4%\n  CAK500-BLR | 11% | 77% | -14%\nLargest forward-forecast changes vs last cycle (W105-W112):\n  GRA6-BLR | +15.0%\n  MUS400-DEL | -8.0%\n  GRA12-MUM | -6.5%\n  OAT1K-MUM | +6.4%\n  CAK250-KOL | -5.0%\n  OAT500-KOL | -4.8%\n12-week forecasts for W105-W116 are stored for every IWL."
+  },
+  {
+   "ts": "22:10:39",
+   "tool": "exception_triage",
+   "args": "{}",
+   "result_chars": 4566,
+   "result": "Deterministic triage of all 40 IWLs. KPIs over W097-W104 at 4-week lag.\nColumns: iwl | engine_bucket (reason) | lenses F=forecastability C=criticality R=current risk P=persistence | KPIs: wk_split(pp) sku_split(pp) pack_split(pp) fwd_fcst_chg(%) bias_chg(pp) | signals: 4w_bucket_err, exception_weeks/8, same_sign_run, level_shift(%), outlier_weeks, promo_notes_in_horizon\nMUS400-DEL (Fruit Muesli 400g @ DEL) | Action-Required (high current risk with persistence or forward forecast change) | F=92 C=61 R=89 P=94 | wk_split=1.5 sku_split=4.2 pack_split=9.5 fwd_chg=-8.0 bias_chg=+42.5 | err4w=45% exc=7/8 run=8 level_shift=-35% outliers=- promo_notes=-\nGRA6-BLR (Granola Bar 6-pack @ BLR) | Action-Required (high current risk with persistence or forward forecast change) | F=92 C=84 R=78 P=25 | wk_split=6.4 sku_split=4.5 pack_split=4.9 fwd_chg=+15.0 bias_chg=-38.5 | err4w=37% exc=2/8 run=2 level_shift=+39% outliers=[101, 102] promo_notes=-\nOAT500-KOL (Rolled Oats 500g @ KOL) | Action-Required (high current risk with persistence or forward forecast change) | F=90 C=63 R=75 P=69 | wk_split=1.0 sku_split=1.1 pack_split=11.3 fwd_chg=-4.8 bias_chg=+22.6 | err4w=23% exc=3/8 run=8 level_shift=-24% outliers=- promo_notes=-\nOAT1K-MUM (Rolled Oats 1kg @ MUM) | Action-Required (high current risk with persistence or forward forecast change) | F=93 C=86 R=74 P=94 | wk_split=1.1 sku_split=2.4 pack_split=6.6 fwd_chg=+6.4 bias_chg=-22.9 | err4w=21% exc=7/8 run=8 level_shift=+38% outliers=[97, 98, 99, 100, 101, 102, 103, 104] promo_notes=-\nGRA12-MUM (Granola Bar 12-pack @ MUM) | Action-Required (high current risk with persistence or forward forecast change) | F=92 C=85 R=73 P=69 | wk_split=2.5 sku_split=1.9 pack_split=5.4 fwd_chg=-6.5 bias_chg=+34.1 | err4w=34% exc=4/8 run=7 level_shift=-29% outliers=- promo_notes=-\nOAT1K-KOL (Rolled Oats 1kg @ KOL) | Action-Required (high current risk with persistence or forward forecast change) | F=90 C=69 R=53 P=69 | wk_split=1.7 sku_split=1.1 pack_split=11.3 fwd_chg=+3.4 bias_chg=-5.8 | err4w=12% exc=3/8 run=8 level_shift=+24% outliers=[97, 98, 99] promo_notes=-\nPOP150-DEL (Masala Popcorn 150g @ DEL) | Action-Required (active promo note in horizon: EV05) | F=92 C=69 R=41 P=12 | wk_split=1.0 sku_split=0.0 pack_split=0.4 fwd_chg=+1.7 bias_chg=-0.3 | err4w=5% exc=0/8 run=2 level_shift=+2% outliers=- promo_notes=['EV05']\nPOP150-MUM (Masala Popcorn 150g @ MUM) | Action-Required (active promo note in horizon: EV04) | F=93 C=70 R=31 P=0 | wk_split=0.7 sku_split=1.9 pack_split=0.4 fwd_chg=+0.1 bias_chg=-0.7 | err4w=1% exc=0/8 run=0 level_shift=+2% outliers=- promo_notes=['EV04']\nMUS750-DEL (Fruit Muesli 750g @ DEL) | Monitor (moderate risk or repeating errors) | F=92 C=70 R=33 P=6 | wk_split=0.7 sku_split=4.2 pack_split=9.5 fwd_chg=+1.4 bias_chg=-3.0 | err4w=5% exc=0/8 run=1 level_shift=+3% outliers=- promo_notes=-\nMUS750-MUM (Fruit Muesli 750g @ MUM) | Monitor (moderate risk or repeating errors) | F=89 C=67 R=33 P=12 | wk_split=4.5 sku_split=2.4 pack_split=1.0 fwd_chg=+1.7 bias_chg=-7.8 | err4w=6% exc=2/8 run=0 level_shift=-4% outliers=[101] promo_notes=-\nGRA12-DEL (Granola Bar 12-pack @ DEL) | Monitor (deseasonalised level has moved; errors not yet persistent) | F=91 C=79 R=29 P=19 | wk_split=1.8 sku_split=0.0 pack_split=3.0 fwd_chg=-2.5 bias_chg=+4.2 | err4w=11% exc=1/8 run=2 level_shift=-14% outliers=- promo_notes=-\nCAK250-KOL (Eggless Cake Mix 250g @ KOL) | Structurally-Noisy (forecastability below threshold) | F=10 C=21 R=100 P=62 | wk_split=30.0 sku_split=0.0 pack_split=9.6 fwd_chg=-5.0 bias_chg=+11.8 | err4w=27% exc=8/8 run=2 level_shift=-50% outliers=- promo_notes=-\nCAK500-BLR (Eggless Cake Mix 500g @ BLR) | Structurally-Noisy (forecastability below threshold) | F=10 C=24 R=72 P=56 | wk_split=18.4 sku_split=0.0 pack_split=3.5 fwd_chg=-3.3 bias_chg=-49.7 | err4w=11% exc=8/8 run=1 level_shift=-10% outliers=- promo_notes=-\nCAK500-KOL (Eggless Cake Mix 500g @ KOL) | Structurally-Noisy (forecastability below threshold) | F=11 C=22 R=70 P=38 | wk_split=13.1 sku_split=0.0 pack_split=9.6 fwd_chg=-2.9 bias_chg=-25.5 | err4w=15% exc=5/8 run=1 level_shift=-26% outliers=- promo_notes=-\nLow-Touch (26, no review needed): CAK250-BLR, CAK250-DEL, CAK250-MUM, CAK500-DEL, CAK500-MUM, GRA12-BLR, GRA12-KOL, GRA6-DEL, GRA6-KOL, GRA6-MUM, MUS400-BLR, MUS400-KOL, MUS400-MUM, MUS750-BLR, MUS750-KOL, OAT1K-BLR, OAT1K-DEL, OAT500-BLR, OAT500-DEL, OAT500-MUM, POP150-BLR, POP150-KOL, POP60-BLR, POP60-DEL, POP60-KOL, POP60-MUM\nCounts: Low-Touch=26, Monitor=3, Action-Required=8, Structurally-Noisy=3"
+  },
+  {
+   "ts": "22:12:27",
+   "tool": "search_event_notes",
+   "args": "{\"query\": \"Fruit Muesli 400g Delhi | Granola Bar 6-pack Bangalore | Rolled Oats 500g Kolkata | Rolled Oats 1kg Mumbai | Granola Bar 12-pack Mumbai | Rolled Oats 1kg Kolkata | Masala Popcorn 150g Delhi | Masala Popcorn 150g Mumbai | Fruit Muesli 750g Delhi | Fruit Muesli 750g Mumbai | Granola Bar 12-",
+   "result_chars": 19033,
+   "result": "Query \"Fruit Muesli 400g Delhi\" -> top 4:\n  #1 EV02 (score 0.419) published W095 | type=competitor location=DEL scope=MUS400 effective=W096-open status=active\n     GrainCo launches value muesli in Delhi NCR: Competitor GrainCo launched a 400g fruit muesli at an 18% lower shelf price in Delhi NCR from W096 (w/c 2026-08-03). Early trade feedback suggests share loss for our Fruit Muesli 400g in the north.\n  #2 EV16 (score 0.159) published W100 | type=competitor location=DEL scope=MUS400 effective=W100-open status=active\n     GrainCo deepens price cut: GrainCo cut its 400g muesli price by a further 7% in Delhi NCR from W100 (w/c 2026-08-31), widening the gap to 25%.\n  #3 EV08 (score 0.137) published W091 | type=customer location=MUM scope=MUS750 effective=W093-open status=active\n     MetroMart Mumbai moves to monthly replenishment: From W093 (w/c 2026-07-13), MetroMart Mumbai places one consolidated order at the start of each month for Fruit Muesli 750g instead of weekly orders. Monthly volume unchanged; weekly pattern will be lumpy.\n  #4 EV06 (score 0.064) published W103 | type=promo_update location=DEL scope=POP150 effective=n/a status=active\n     Update: Delhi popcorn activity: Retailer budget for the Delhi NCR festive window has been reallocated to beverages. The planned Masala Popcorn 150g activity will not go ahead this season.\nQuery \"Granola Bar 6-pack Bangalore\" -> top 4:\n  #1 EV20 (score 0.466) published W090 | type=listing location=KOL scope=GRA6 effective=W120-open status=active\n     Possible listing - Granola Bar 6-pack, Kolkata: Early-stage discussion with a Kolkata chain about listing Granola Bar 6-pack next year. Nothing agreed.\n  #2 EV03 (score 0.39) published W099 | type=promo location=BLR scope=GRA6 effective=W101-W102 status=active\n     Bengaluru buy-one-get-one on Granola Bar 6-pack: BOGO promotion on Granola Bar 6-pack at Bengaluru key accounts, W101 (w/c 2026-09-07) to W102 (w/c 2026-09-14) only. One-off; no follow-on activity planned. Expect pantry loading and a short dip afterwards.\n  #3 EV12 (score 0.291) published W068 | type=supply location=DEL scope=GRA12 effective=W070-W071 status=active\n     Delhi DC stock-out - Granola Bar 12-pack: Packaging shortage caused a stock-out of Granola Bar 12-pack at Delhi DC in W070 (w/c 2026-02-02) to W071 (w/c 2026-02-09). Resolved.\n  #4 EV07 (score 0.033) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\nQuery \"Rolled Oats 500g Kolkata\" -> top 4:\n  #1 EV17 (score 0.384) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only.\n  #2 EV07 (score 0.369) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\n  #3 EV09 (score 0.238) published W088 | type=promo location=MUM scope=OAT500 effective=W090-W091 status=active\n     Mumbai oats sampling drive: In-store sampling for Rolled Oats 500g in Mumbai, W090 (w/c 2026-06-22) to W091 (w/c 2026-06-29). Small activity, minimal volume impact expected.\n  #4 EV01 (score 0.167) published W095 | type=listing location=MUM scope=OAT1K effective=W097-open status=active\n     MetroMart Mumbai listing gain - Rolled Oats 1kg: MetroMart (modern trade chain) has added Rolled Oats 1kg to its Mumbai planogram across 120 stores. First orders ship W097 (w/c 2026-08-10). Listing is permanent; expect a sustained step-up in Mumbai DC volume for the 1kg pack.\nQuery \"Rolled Oats 1kg Mumbai\" -> top 4:\n  #1 EV01 (score 0.439) published W095 | type=listing location=MUM scope=OAT1K effective=W097-open status=active\n     MetroMart Mumbai listing gain - Rolled Oats 1kg: MetroMart (modern trade chain) has added Rolled Oats 1kg to its Mumbai planogram across 120 stores. First orders ship W097 (w/c 2026-08-10). Listing is permanent; expect a sustained step-up in Mumbai DC volume for the 1kg pack.\n  #2 EV17 (score 0.252) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only.\n  #3 EV07 (score 0.227) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\n  #4 EV09 (score 0.181) published W088 | type=promo location=MUM scope=OAT500 effective=W090-W091 status=active\n     Mumbai oats sampling drive: In-store sampling for Rolled Oats 500g in Mumbai, W090 (w/c 2026-06-22) to W091 (w/c 2026-06-29). Small activity, minimal volume impact expected.\nQuery \"Granola Bar 12-pack Mumbai\" -> top 4:\n  #1 EV12 (score 0.463) published W068 | type=supply location=DEL scope=GRA12 effective=W070-W071 status=active\n     Delhi DC stock-out - Granola Bar 12-pack: Packaging shortage caused a stock-out of Granola Bar 12-pack at Delhi DC in W070 (w/c 2026-02-02) to W071 (w/c 2026-02-09). Resolved.\n  #2 EV20 (score 0.268) published W090 | type=listing location=KOL scope=GRA6 effective=W120-open status=active\n     Possible listing - Granola Bar 6-pack, Kolkata: Early-stage discussion with a Kolkata chain about listing Granola Bar 6-pack next year. Nothing agreed.\n  #3 EV03 (score 0.224) published W099 | type=promo location=BLR scope=GRA6 effective=W101-W102 status=active\n     Bengaluru buy-one-get-one on Granola Bar 6-pack: BOGO promotion on Granola Bar 6-pack at Bengaluru key accounts, W101 (w/c 2026-09-07) to W102 (w/c 2026-09-14) only. One-off; no follow-on activity planned. Expect pantry loading and a short dip afterwards.\n  #4 EV01 (score 0.08) published W095 | type=listing location=MUM scope=OAT1K effective=W097-open status=active\n     MetroMart Mumbai listing gain - Rolled Oats 1kg: MetroMart (modern trade chain) has added Rolled Oats 1kg to its Mumbai planogram across 120 stores. First orders ship W097 (w/c 2026-08-10). Listing is permanent; expect a sustained step-up in Mumbai DC volume for the 1kg pack.\nQuery \"Rolled Oats 1kg Kolkata\" -> top 4:\n  #1 EV01 (score 0.357) published W095 | type=listing location=MUM scope=OAT1K effective=W097-open status=active\n     MetroMart Mumbai listing gain - Rolled Oats 1kg: MetroMart (modern trade chain) has added Rolled Oats 1kg to its Mumbai planogram across 120 stores. First orders ship W097 (w/c 2026-08-10). Listing is permanent; expect a sustained step-up in Mumbai DC volume for the 1kg pack.\n  #2 EV07 (score 0.291) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\n  #3 EV17 (score 0.195) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only.\n  #4 EV09 (score 0.131) published W088 | type=promo location=MUM scope=OAT500 effective=W090-W091 status=active\n     Mumbai oats sampling drive: In-store sampling for Rolled Oats 500g in Mumbai, W090 (w/c 2026-06-22) to W091 (w/c 2026-06-29). Small activity, minimal volume impact expected.\nQuery \"Masala Popcorn 150g Delhi\" -> top 4:\n  #1 EV05 (score 0.474) published W099 | type=promo location=DEL scope=POP150 effective=W106-W108 status=active\n     Festive promotion - Masala Popcorn 150g, Delhi: Planned Diwali-season 25% off promotion on Masala Popcorn 150g in Delhi NCR modern trade, W106 (w/c 2026-10-12) to W108 (w/c 2026-10-26). Category team expects roughly +60% uplift in promo weeks.\n  #2 EV06 (score 0.324) published W103 | type=promo_update location=DEL scope=POP150 effective=n/a status=active\n     Update: Delhi popcorn activity: Retailer budget for the Delhi NCR festive window has been reallocated to beverages. The planned Masala Popcorn 150g activity will not go ahead this season.\n  #3 EV04 (score 0.303) published W100 | type=promo location=MUM scope=POP150 effective=W106-W108 status=active\n     Festive promotion - Masala Popcorn 150g, Mumbai: Diwali-season 25% off promotion on Masala Popcorn 150g across Mumbai modern trade, W106 (w/c 2026-10-12) to W108 (w/c 2026-10-26). Confirmed with retailer; POS material printed. Category team expects roughly +60% uplift in promo weeks.\n  #4 EV15 (score 0.062) published W102 | type=customer location=DEL scope=GRA12 effective=W110-open status=active\n     Planogram review scheduled - Delhi snacks bay: A key Delhi account will review its snacks planogram in W110 (w/c 2026-11-09). No change to ranging yet.\nQuery \"Masala Popcorn 150g Mumbai\" -> top 4:\n  #1 EV04 (score 0.456) published W100 | type=promo location=MUM scope=POP150 effective=W106-W108 status=active\n     Festive promotion - Masala Popcorn 150g, Mumbai: Diwali-season 25% off promotion on Masala Popcorn 150g across Mumbai modern trade, W106 (w/c 2026-10-12) to W108 (w/c 2026-10-26). Confirmed with retailer; POS material printed. Category team expects roughly +60% uplift in promo weeks.\n  #2 EV05 (score 0.317) published W099 | type=promo location=DEL scope=POP150 effective=W106-W108 status=active\n     Festive promotion - Masala Popcorn 150g, Delhi: Planned Diwali-season 25% off promotion on Masala Popcorn 150g in Delhi NCR modern trade, W106 (w/c 2026-10-12) to W108 (w/c 2026-10-26). Category team expects roughly +60% uplift in promo weeks.\n  #3 EV06 (score 0.259) published W103 | type=promo_update location=DEL scope=POP150 effective=n/a status=active\n     Update: Delhi popcorn activity: Retailer budget for the Delhi NCR festive window has been reallocated to beverages. The planned Masala Popcorn 150g activity will not go ahead this season.\n  #4 EV17 (score 0.077) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only.\nQuery \"Fruit Muesli 750g Delhi\" -> top 4:\n  #1 EV02 (score 0.275) published W095 | type=competitor location=DEL scope=MUS400 effective=W096-open status=active\n     GrainCo launches value muesli in Delhi NCR: Competitor GrainCo launched a 400g fruit muesli at an 18% lower shelf price in Delhi NCR from W096 (w/c 2026-08-03). Early trade feedback suggests share loss for our Fruit Muesli 400g in the north.\n  #2 EV08 (score 0.257) published W091 | type=customer location=MUM scope=MUS750 effective=W093-open status=active\n     MetroMart Mumbai moves to monthly replenishment: From W093 (w/c 2026-07-13), MetroMart Mumbai places one consolidated order at the start of each month for Fruit Muesli 750g instead of weekly orders. Monthly volume unchanged; weekly pattern will be lumpy.\n  #3 EV16 (score 0.097) published W100 | type=competitor location=DEL scope=MUS400 effective=W100-open status=active\n     GrainCo deepens price cut: GrainCo cut its 400g muesli price by a further 7% in Delhi NCR from W100 (w/c 2026-08-31), widening the gap to 25%.\n  #4 EV06 (score 0.062) published W103 | type=promo_update location=DEL scope=POP150 effective=n/a status=active\n     Update: Delhi popcorn activity: Retailer budget for the Delhi NCR festive window has been reallocated to beverages. The planned Masala Popcorn 150g activity will not go ahead this season.\nQuery \"Fruit Muesli 750g Mumbai\" -> top 4:\n  #1 EV08 (score 0.314) published W091 | type=customer location=MUM scope=MUS750 effective=W093-open status=active\n     MetroMart Mumbai moves to monthly replenishment: From W093 (w/c 2026-07-13), MetroMart Mumbai places one consolidated order at the start of each month for Fruit Muesli 750g instead of weekly orders. Monthly volume unchanged; weekly pattern will be lumpy.\n  #2 EV02 (score 0.226) published W095 | type=competitor location=DEL scope=MUS400 effective=W096-open status=active\n     GrainCo launches value muesli in Delhi NCR: Competitor GrainCo launched a 400g fruit muesli at an 18% lower shelf price in Delhi NCR from W096 (w/c 2026-08-03). Early trade feedback suggests share loss for our Fruit Muesli 400g in the north.\n  #3 EV17 (score 0.076) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only.\n  #4 EV09 (score 0.063) published W088 | type=promo location=MUM scope=OAT500 effective=W090-W091 status=active\n     Mumbai oats sampling drive: In-store sampling for Rolled Oats 500g in Mumbai, W090 (w/c 2026-06-22) to W091 (w/c 2026-06-29). Small activity, minimal volume impact expected.\nQuery \"Granola Bar 12-pack Delhi\" -> top 4:\n  #1 EV12 (score 0.521) published W068 | type=supply location=DEL scope=GRA12 effective=W070-W071 status=active\n     Delhi DC stock-out - Granola Bar 12-pack: Packaging shortage caused a stock-out of Granola Bar 12-pack at Delhi DC in W070 (w/c 2026-02-02) to W071 (w/c 2026-02-09). Resolved.\n  #2 EV20 (score 0.247) published W090 | type=listing location=KOL scope=GRA6 effective=W120-open status=active\n     Possible listing - Granola Bar 6-pack, Kolkata: Early-stage discussion with a Kolkata chain about listing Granola Bar 6-pack next year. Nothing agreed.\n  #3 EV03 (score 0.207) published W099 | type=promo location=BLR scope=GRA6 effective=W101-W102 status=active\n     Bengaluru buy-one-get-one on Granola Bar 6-pack: BOGO promotion on Granola Bar 6-pack at Bengaluru key accounts, W101 (w/c 2026-09-07) to W102 (w/c 2026-09-14) only. One-off; no follow-on activity planned. Expect pantry loading and a short dip afterwards.\n  #4 EV05 (score 0.07) published W099 | type=promo location=DEL scope=POP150 effective=W106-W108 status=active\n     Festive promotion - Masala Popcorn 150g, Delhi: Planned Diwali-season 25% off promotion on Masala Popcorn 150g in Delhi NCR modern trade, W106 (w/c 2026-10-12) to W108 (w/c 2026-10-26). Category team expects roughly +60% uplift in promo weeks.\nQuery \"Eggless Cake Mix 250g Kolkata\" -> top 4:\n  #1 EV11 (score 0.437) published W060 | type=customer location=KOL scope=CAK effective=n/a status=active\n     Cake mix demand in the East is institutional: Most Eggless Cake Mix volume through Kolkata DC goes to small bakeries and caterers who order irregularly and in bulk. Weekly demand is lumpy with many zero weeks; aggregate monthly volume is stable.\n  #2 EV20 (score 0.087) published W090 | type=listing location=KOL scope=GRA6 effective=W120-open status=active\n     Possible listing - Granola Bar 6-pack, Kolkata: Early-stage discussion with a Kolkata chain about listing Granola Bar 6-pack next year. Nothing agreed.\n  #3 EV07 (score 0.034) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\n  #4 EV03 (score 0.0) published W099 | type=promo location=BLR scope=GRA6 effective=W101-W102 status=active\n     Bengaluru buy-one-get-one on Granola Bar 6-pack: BOGO promotion on Granola Bar 6-pack at Bengaluru key accounts, W101 (w/c 2026-09-07) to W102 (w/c 2026-09-14) only. One-off; no follow-on activity planned. Expect pantry loading and a short dip afterwards.\nQuery \"Eggless Cake Mix 500g Bangalore\" -> top 4:\n  #1 EV11 (score 0.38) published W060 | type=customer location=KOL scope=CAK effective=n/a status=active\n     Cake mix demand in the East is institutional: Most Eggless Cake Mix volume through Kolkata DC goes to small bakeries and caterers who order irregularly and in bulk. Weekly demand is lumpy with many zero weeks; aggregate monthly volume is stable.\n  #2 EV17 (score 0.068) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only.\n  #3 EV07 (score 0.057) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\n  #4 EV09 (score 0.038) published W088 | type=promo location=MUM scope=OAT500 effective=W090-W091 status=active\n     Mumbai oats sampling drive: In-store sampling for Rolled Oats 500g in Mumbai, W090 (w/c 2026-06-22) to W091 (w/c 2026-06-29). Small activity, minimal volume impact expected.\nQuery \"Eggless Cake Mix 500g Kolkata\" -> top 4:\n  #1 EV11 (score 0.414) published W060 | type=customer location=KOL scope=CAK effective=n/a status=active\n     Cake mix demand in the East is institutional: Most Eggless Cake Mix volume through Kolkata DC goes to small bakeries and caterers who order irregularly and in bulk. Weekly demand is lumpy with many zero weeks; aggregate monthly volume is stable.\n  #2 EV07 (score 0.087) published W093 | type=price location=KOL scope=OAT500 effective=W095-open status=active\n     Price increase - Rolled Oats 500g, East: List price of Rolled Oats 500g rises 12% in the East region from W095 (w/c 2026-07-27); 1kg price unchanged. Trade expects shoppers to trade up to the 1kg pack, which is now better value per kg.\n  #3 EV20 (score 0.082) published W090 | type=listing location=KOL scope=GRA6 effective=W120-open status=active\n     Possible listing - Granola Bar 6-pack, Kolkata: Early-stage discussion with a Kolkata chain about listing Granola Bar 6-pack next year. Nothing agreed.\n  #4 EV17 (score 0.064) published W101 | type=promo location=MUM scope=OAT500 effective=W103-W104 status=active\n     Rolled Oats 500g weekend offer - Mumbai only: Weekend price-off on Rolled Oats 500g in Mumbai modern trade, W103 (w/c 2026-09-21) to W104 (w/c 2026-09-28). Mumbai only."
+  },
+  {
+   "ts": "22:12:44",
+   "tool": "iwl_history",
+   "args": "{\"iwl_id\": \"GRA12-MUM\", \"weeks\": 16}",
+   "result_chars": 897,
+   "result": "GRA12-MUM = Granola Bar 12-pack @ Mumbai. Last 16 weeks (forecast = made 4 weeks earlier):\nweek | week_start | actual | lag4_forecast | error_pct | deseasonalised\nW089 | 2026-06-15 | 414 | 351 | -18% | 430\nW090 | 2026-06-22 | 316 | 356 | +11% | 329\nW091 | 2026-06-29 | 387 | 348 | -11% | 411\nW092 | 2026-07-06 | 326 | 348 | +6% | 347\nW093 | 2026-07-13 | 356 | 350 | -2% | 381\nW094 | 2026-07-20 | 344 | 347 | +1% | 367\nW095 | 2026-07-27 | 322 | 350 | +8% | 344\nW096 | 2026-08-03 | 320 | 347 | +8% | 344\nW097 | 2026-08-10 | 353 | 344 | -3% | 382\nW098 | 2026-08-17 | 260 | 345 | +25% | 281\nW099 | 2026-08-24 | 237 | 340 | +30% | 258\nW100 | 2026-08-31 | 240 | 340 | +29% | 260\nW101 | 2026-09-07 | 249 | 336 | +26% | 273\nW102 | 2026-09-14 | 219 | 330 | +34% | 240\nW103 | 2026-09-21 | 253 | 325 | +22% | 275\nW104 | 2026-09-28 | 259 | 326 | +21% | 275\nReference level (deseasonalised mean W071-W096): 370"
+  },
+  {
+   "ts": "22:14:21",
+   "tool": "reforecast_iwls",
+   "args": "{\"requests_json\": \"[\\n  {\\\"iwl_id\\\": \\\"MUS400-DEL\\\", \\\"method\\\": \\\"relevel\\\", \\\"params\\\": {\\\"recent_weeks\\\": 6}},\\n  {\\\"iwl_id\\\": \\\"GRA6-BLR\\\", \\\"method\\\": \\\"cleanse_spike\\\", \\\"params\\\": {\\\"spike_weeks\\\": [101, 102]}},\\n  {\\\"iwl_id\\\": \\\"OAT500-KOL\\\", \\\"method\\\": \\\"relevel\\\", \\\"params\\\": {\\\"recent_we",
+   "result_chars": 2654,
+   "result": "MUS400-DEL | relevel {\"recent_weeks\": 6} | 12-week total 4652 -> 3633 (-21.9%) | first 4 weeks [365.0, 371.0, 378.0, 379.0] -> [285.0, 290.0, 295.0, 296.0] | status: PROPOSED, awaiting human approval\nGRA6-BLR | cleanse_spike {\"spike_weeks\": [101, 102]} | 12-week total 9064 -> 7821 (-13.7%) | first 4 weeks [682.0, 743.0, 837.0, 887.0] -> [588.0, 641.0, 722.0, 766.0] | status: PROPOSED, awaiting human approval\nOAT500-KOL | relevel {\"recent_weeks\": 6} | 12-week total 6358 -> 5461 (-14.1%) | first 4 weeks [499.0, 507.0, 517.0, 518.0] -> [429.0, 435.0, 444.0, 445.0] | status: PROPOSED, awaiting human approval\nOAT1K-MUM | relevel {\"recent_weeks\": 8} | 12-week total 8421 -> 9830 (+16.7%) | first 4 weeks [661.0, 671.0, 685.0, 686.0] -> [772.0, 784.0, 799.0, 801.0] | status: PROPOSED, awaiting human approval\nGRA12-MUM | relevel {\"recent_weeks\": 7} | 12-week total 4304 -> 3539 (-17.8%) | first 4 weeks [324.0, 353.0, 397.0, 421.0] -> [266.0, 290.0, 327.0, 346.0] | status: PROPOSED, awaiting human approval\nOAT1K-KOL | relevel {\"recent_weeks\": 6} | 12-week total 4738 -> 5157 (+8.9%) | first 4 weeks [372.0, 378.0, 385.0, 386.0] -> [405.0, 411.0, 419.0, 420.0] | status: PROPOSED, awaiting human approval\nPOP150-DEL | no_change {} | 12-week total 8863 -> 8863 (+0.0%) | first 4 weeks [667.0, 727.0, 818.0, 867.0] -> [667.0, 727.0, 818.0, 867.0] | status: PROPOSED, awaiting human approval\nPOP150-MUM | no_change {} | 12-week total 9127 -> 9127 (+0.0%) | first 4 weeks [687.0, 748.0, 843.0, 893.0] -> [687.0, 748.0, 843.0, 893.0] | status: PROPOSED, awaiting human approval\nMUS750-DEL | no_change {} | 12-week total 3539 -> 3539 (+0.0%) | first 4 weeks [278.0, 282.0, 288.0, 288.0] -> [278.0, 282.0, 288.0, 288.0] | status: PROPOSED, awaiting human approval\nMUS750-MUM | rephase_weekly {} | 12-week total 3402 -> 3395 (-0.2%) | first 4 weeks [267.0, 271.0, 277.0, 277.0] -> [424.0, 218.0, 223.0, 223.0] | status: PROPOSED, awaiting human approval\nGRA12-DEL | no_change {} | 12-week total 3948 -> 3948 (+0.0%) | first 4 weeks [297.0, 324.0, 364.0, 386.0] -> [297.0, 324.0, 364.0, 386.0] | status: PROPOSED, awaiting human approval\nCAK250-KOL | aggregate {} | 12-week total 523 -> 720 (+37.5%) | first 4 weeks [39.0, 44.0, 50.0, 55.0] -> [53.0, 61.0, 69.0, 75.0] | status: PROPOSED, awaiting human approval\nCAK500-BLR | aggregate {} | 12-week total 475 -> 463 (-2.5%) | first 4 weeks [35.0, 40.0, 45.0, 50.0] -> [34.0, 39.0, 44.0, 48.0] | status: PROPOSED, awaiting human approval\nCAK500-KOL | aggregate {} | 12-week total 515 -> 548 (+6.5%) | first 4 weeks [38.0, 43.0, 49.0, 54.0] -> [40.0, 46.0, 52.0, 57.0] | status: PROPOSED, awaiting human approval"
+  }
+ ],
+ "trace": [
+  {
+   "ts": "22:03:33",
+   "step": "AgentFinish(thought='', output='**Data Coverage:**\\nThe portfolio covers 40 IWLs (10 items across 4 DCs) over 104 weeks with no missing weeks. Portfolio forecastability has a median of 92, with 3 IWLs scoring below 40.\\n\\n**Intermittent & Low-Volume IWLs:**\\nThese structurally hard-to-forecast lines should not be evaluated on standard weekly accuracy:\\n- **Intermittent and low-volume:** CAK250-KOL (forecastability 10, zero share 0.46), CAK500-BLR (forecastability 10, zero share 0.56), and CAK500-KOL (forecastability 11, zero share 0.38).\\n- **Low-volume:** CAK250-BLR (avg 61 units), CAK250-DEL (avg 88 units), CAK250-MUM (avg 93 units), CAK500-DEL (avg 47 units), and CAK500-MUM (avg 57 units).\\n\\n**Data-Quality Flags (Recent Outliers):**\\n- CAK250-MUM: W[103]\\n- CAK500-DEL: W[101]\\n- GRA6-BLR: W[101, 102]\\n- MUS750-MUM: W[101]\\n- OAT1K-KOL: W[97, 98, 99]\\n- OAT1K-MUM: W[97, 98, 99, 100, 101, 102, 103, 104]\\n- POP60-BLR: W[99]', text='**Data Coverage:**\\nThe portfolio covers 40 IWLs (10 items across 4 DCs) over 104 weeks with no missing weeks. Portfolio forecastability has a median of 92, with 3 IWLs scoring below 40.\\n\\n**Intermittent & Low-Volume IWLs:**\\nThese structurally hard-to-forecast lines should not be evaluated on standard weekly accuracy:\\n- **Intermittent and low-volume:** CAK250-KOL (forecastability 10, zero share 0.46), CAK500-BLR (forecastability 10, zero share 0.56), and CAK500-KOL (forecastability 11, zero share 0.38).\\n- **Low-volume:** CAK250-BLR (avg 61 units), CAK250-DEL (avg 88 units), CAK250-MUM (avg 93 units), CAK500-DEL (avg 47 units), and CAK500-MUM (avg 57 units).\\n\\n**Data-Quality Flags (Recent Outliers):**\\n- CAK250-MUM: W[103]\\n- CAK500-DEL: W[101]\\n- GRA6-BLR: W[101, 102]\\n- MUS750-MUM: W[101]\\n- OAT1K-KOL: W[97, 98, 99]\\n- OAT1K-MUM: W[97, 98, 99, 100, 101, 102, 103, 104]\\n- POP60-BLR: W[99]')"
+  },
+  {
+   "ts": "22:08:48",
+   "step": "AgentFinish(thought='', output='The statistical baseline forecast is complete. Portfolio performance at a 4-week lag shows a WAPE of 10.0% and a near-neutral bias of -0.4%.\\n\\n**Top Error IWLs (4-week bucket):**\\n*   **MUS400-DEL:** 45%\\n*   **GRA6-BLR:** 37%\\n*   **GRA12-MUM:** 34%\\n*   **CAK250-KOL:** 27%\\n*   **OAT500-KOL:** 23%\\n\\n**Top Forecast Movers (vs last cycle):**\\n*   **GRA6-BLR:** +15.0%\\n*   **MUS400-DEL:** -8.0%\\n*   **GRA12-MUM:** -6.5%\\n*   **OAT1K-MUM:** +6.4%\\n*   **CAK250-KOL:** -5.0%\\n\\n**Limitation:**\\nThe baseline method utilizes category-pooled seasonality, which may fail to capture item-specific seasonal nuances, particularly for high-variance or intermittent lines like CAK250-KOL. Additionally, the low smoothing alpha (0.08) makes the model slow to react to genuine recent trend shifts.', text='The statistical baseline forecast is complete. Portfolio performance at a 4-week lag shows a WAPE of 10.0% and a near-neutral bias of -0.4%.\\n\\n**Top Error IWLs (4-week bucket):**\\n*   **MUS400-DEL:** 45%\\n*   **GRA6-BLR:** 37%\\n*   **GRA12-MUM:** 34%\\n*   **CAK250-KOL:** 27%\\n*   **OAT500-KOL:** 23%\\n\\n**Top Forecast Movers (vs last cycle):**\\n*   **GRA6-BLR:** +15.0%\\n*   **MUS400-DEL:** -8.0%\\n*   **GRA12-MUM:** -6.5%\\n*   **OAT1K-MUM:** +6.4%\\n*   **CAK250-KOL:** -5.0%\\n\\n**Limitation:**\\nThe baseline method utilizes category-pooled seasonality, which may fail to capture item-specific seasonal nuances, particularly for high-variance or intermittent lines like CAK250-KOL. Additionally, the low smoothing alpha (0.08) makes the model slow to react to genuine recent trend shifts.')"
+  },
+  {
+   "ts": "22:13:02",
+   "step": "AgentFinish(thought='', output='{\\n  \"items\": [\\n    {\\n      \"iwl_id\": \"MUS400-DEL\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\\n      \"evidence_note_ids\": [\\n        \"EV02\",\\n        \"EV16\"\\n      ],\\n      \"evidence_status\": \"supported\",\\n      \"reasoning\": \"The 4-week bucket error of 45% and a level shift of -35% are explained by the launch of a competitor product (EV02) and a subsequent deep price cut (EV16) in the Delhi region.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"GRA6-BLR\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"ONE_OFF_SPIKE\",\\n      \"evidence_note_ids\": [\\n        \"EV03\"\\n      ],\\n      \"evidence_status\": \"supported\",\\n      \"reasoning\": \"Outliers in W101 and W102 and a 37% error align perfectly with a confirmed BOGO promotion in Bengaluru (EV03) that was a one-off event.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"OAT500-KOL\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"PACK_MIX_SHIFT\",\\n      \"evidence_note_ids\": [\\n        \"EV07\"\\n      ],\\n      \"evidence_status\": \"supported\",\\n      \"reasoning\": \"A 12% price increase on the 500g pack (EV07) led to a -24% level shift as shoppers traded up to the 1kg pack, which saw a corresponding +24% shift.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"OAT1K-MUM\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"LEVEL_SHIFT_UP\",\\n      \"evidence_note_ids\": [\\n        \"EV01\"\\n      ],\\n      \"evidence_status\": \"supported\",\\n      \"reasoning\": \"A permanent listing gain at MetroMart Mumbai (EV01) starting W097 explains the sustained +38% level shift and persistent positive bias.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"GRA12-MUM\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\\n      \"evidence_note_ids\": [],\\n      \"evidence_status\": \"no_evidence_found\",\\n      \"reasoning\": \"History shows a sharp drop in deseasonalised demand from ~370 to ~260 starting W098, resulting in a -29% level shift, though no specific event note was found.\",\\n      \"confidence\": \"medium\"\\n    },\\n    {\\n      \"iwl_id\": \"OAT1K-KOL\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"PACK_MIX_SHIFT\",\\n      \"evidence_note_ids\": [\\n        \"EV07\"\\n      ],\\n      \"evidence_status\": \"supported\",\\n      \"reasoning\": \"The +24% level shift is the counterpart to the OAT500-KOL drop, driven by shoppers trading up following the 500g price increase (EV07).\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"POP150-DEL\",\\n      \"engine_bucket\": \"Action-Required\",\\n      \"final_bucket\": \"Low-Touch\",\\n      \"cause\": \"NONE\",\\n      \"evidence_note_ids\": [\\n        \"EV06\"\\n      "
+  },
+  {
+   "ts": "22:20:00",
+   "step": "AgentFinish(thought='', output='{\\n  \"recommendations\": [\\n    {\\n      \"iwl_id\": \"MUS400-DEL\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\\n      \"action\": \"relevel\",\\n      \"params_json\": \"{\\\\\"recent_weeks\\\\\": 6}\",\\n      \"evidence_note_ids\": [\\n        \"EV02\",\\n        \"EV16\"\\n      ],\\n      \"horizon_change_pct\": -21.9,\\n      \"rationale\": \"A -35% level shift caused by a competitor launch (EV02) and price cut (EV16) is addressed by releveling to the last 6 weeks of demand.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"GRA6-BLR\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"ONE_OFF_SPIKE\",\\n      \"action\": \"cleanse_spike\",\\n      \"params_json\": \"{\\\\\"spike_weeks\\\\\": [101, 102]}\",\\n      \"evidence_note_ids\": [\\n        \"EV03\"\\n      ],\\n      \"horizon_change_pct\": -13.7,\\n      \"rationale\": \"The one-off BOGO promotion in W101-W102 (EV03) created a temporary spike; cleansing these weeks prevents the forecast from chasing the outlier.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"OAT500-KOL\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"PACK_MIX_SHIFT\",\\n      \"action\": \"relevel\",\\n      \"params_json\": \"{\\\\\"recent_weeks\\\\\": 6}\",\\n      \"evidence_note_ids\": [\\n        \"EV07\"\\n      ],\\n      \"horizon_change_pct\": -14.1,\\n      \"rationale\": \"A 12% price increase (EV07) led to a -24% level shift as shoppers traded up; releveling to the last 6 weeks captures the new lower baseline.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"OAT1K-MUM\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"LEVEL_SHIFT_UP\",\\n      \"action\": \"relevel\",\\n      \"params_json\": \"{\\\\\"recent_weeks\\\\\": 8}\",\\n      \"evidence_note_ids\": [\\n        \"EV01\"\\n      ],\\n      \"horizon_change_pct\": 16.7,\\n      \"rationale\": \"Permanent listing gain at MetroMart (EV01) since W097 sustained a +38% shift; releveling to the last 8 weeks aligns the forecast with current volume.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"GRA12-MUM\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"LEVEL_SHIFT_DOWN\",\\n      \"action\": \"relevel\",\\n      \"params_json\": \"{\\\\\"recent_weeks\\\\\": 7}\",\\n      \"evidence_note_ids\": [],\\n      \"horizon_change_pct\": -17.8,\\n      \"rationale\": \"Deseasonalised demand dropped significantly starting W098 (-29% shift); releveling to the last 7 weeks reflects this structural change.\",\\n      \"confidence\": \"medium\"\\n    },\\n    {\\n      \"iwl_id\": \"OAT1K-KOL\",\\n      \"final_bucket\": \"Action-Required\",\\n      \"cause\": \"PACK_MIX_SHIFT\",\\n      \"action\": \"relevel\",\\n      \"params_json\": \"{\\\\\"recent_weeks\\\\\": 6}\",\\n      \"evidence_note_ids\": [\\n        \"EV07\"\\n      ],\\n      \"horizon_change_pct\": 8.9,\\n      \"rationale\": \"Counterpart to the 500g drop, this +24% shift from trade-ups (EV07) is captured by releveling to the last 6 weeks of history.\",\\n      \"confidence\": \"high\"\\n    },\\n    {\\n      \"iwl_id\": \"POP150-DEL\",\\n      \"final_bu"
+  }
+ ],
+ "retry_events": [
+  {
+   "ts": "22:02:32",
+   "model": "gemini-3.8-flash",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:02:39",
+   "model": "gemini-3.8-flash",
+   "attempt": 2,
+   "wait_s": 10,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:02:54",
+   "model": "gemini-3.8-flash",
+   "attempt": 3,
+   "wait_s": 20,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:03:42",
+   "model": "gemini-3.8-flash",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:03:57",
+   "model": "gemini-3.8-flash",
+   "attempt": 2,
+   "wait_s": 10,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:04:52",
+   "model": "gemini-3.8-flash",
+   "attempt": 3,
+   "wait_s": 20,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:05:31",
+   "model": "gemini-3.8-flash",
+   "attempt": 4,
+   "wait_s": 40,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:06:12",
+   "model": "gemini-3.8-flash",
+   "attempt": 5,
+   "wait_s": 60,
+   "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google."
+  },
+  {
+   "ts": "22:07:12",
+   "model": "gemini-3.8-flash",
+   "switched_to": "gemini-3-flash-preview",
+   "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google."
+  },
+  {
+   "ts": "22:07:37",
+   "model": "gemini-3-flash-preview",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:08:21",
+   "model": "gemini-3-flash-preview",
+   "attempt": 2,
+   "wait_s": 10,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:09:46",
+   "model": "gemini-3-flash-preview",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:10:00",
+   "model": "gemini-3-flash-preview",
+   "attempt": 2,
+   "wait_s": 10,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:11:23",
+   "model": "gemini-3-flash-preview",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:13:34",
+   "model": "gemini-3-flash-preview",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:15:32",
+   "model": "gemini-3-flash-preview",
+   "attempt": 1,
+   "wait_s": 5,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:16:22",
+   "model": "gemini-3-flash-preview",
+   "attempt": 2,
+   "wait_s": 10,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:17:16",
+   "model": "gemini-3-flash-preview",
+   "attempt": 3,
+   "wait_s": 20,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "ts": "22:18:45",
+   "model": "gemini-3-flash-preview",
+   "attempt": 4,
+   "wait_s": 40,
+   "error": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  }
+ ],
+ "approvals": {
+  "MUS400-DEL": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:28:40"
+  },
+  "GRA6-BLR": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:28:47"
+  },
+  "OAT500-KOL": {
+   "decision": "reject",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:28:50"
+  },
+  "OAT1K-MUM": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:28:53"
+  },
+  "GRA12-MUM": {
+   "decision": "reject",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:28:56"
+  },
+  "OAT1K-KOL": {
+   "decision": "reject",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:28:58"
+  },
+  "POP150-DEL": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:29:02"
+  },
+  "POP150-MUM": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:29:04"
+  },
+  "MUS750-DEL": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:29:06",
+   "params_json": "0"
+  },
+  "MUS750-MUM": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:29:56"
+  },
+  "GRA12-DEL": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:29:58"
+  },
+  "CAK250-KOL": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:30:00"
+  },
+  "CAK500-BLR": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:30:03"
+  },
+  "CAK500-KOL": {
+   "decision": "approve",
+   "approver": "Rohan Pandey",
+   "ts": "2026-10-07 22:30:04"
+  }
+ }
+}
